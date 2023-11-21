@@ -11,7 +11,8 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DashboardScreenCubit()..init(),
+      lazy: false,
+      create: (context) => DashboardScreenCubit()..requestNeededPermissions(),
       child: const DashboardView(),
     );
   }
