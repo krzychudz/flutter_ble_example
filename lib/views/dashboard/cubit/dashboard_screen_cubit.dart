@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter_ble_example/common/extension/bluetooth_services.dart';
 import 'package:flutter_ble_example/services/bluetooth/bluetooth_service_interface.dart';
@@ -16,6 +18,7 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
   ) : super(DashboardScreenState());
 
   final BluetoothConnectionServiceInterface _bluetoothConnectionService;
+  StreamSubscription<BluetoothConnectionState>? _connectionStateSubscription;
 
   void requestNeededPermissions() async {
     final locationPermissionStatus = await Permission.location.request();
@@ -52,6 +55,8 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
 
     await bluetoothDevice.connect();
 
+    _setupDeviceStateListeners();
+
     final bluetoothDeviceServices = await _bluetoothConnectionService.getBluetoothServices(bluetoothDevice);
 
     final rxBluetoothCharacteristic = bluetoothDeviceServices.getCharacteristicById(
@@ -65,17 +70,22 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
     emit(state.copyWith(
       rxBluetoothCharacteristic: rxBluetoothCharacteristic,
       txBluetoothCharacteristic: txBluetoothCharacteristic,
-      deviceConnectionState: DeviceConnectionState.connected,
     ));
 
     setupTxCharacteristicsCallback();
   }
 
+  void _setupDeviceStateListeners() {
+    final bluetoothDevice = state.espBluetoothDevice;
+    _connectionStateSubscription = bluetoothDevice?.connectionState.listen((bluetoothConnectionState) {
+      emit(state.copyWith(
+        deviceConnectionState: bluetoothConnectionState,
+      ));
+    });
+  }
+
   void disconnect() async {
     await state.espBluetoothDevice?.disconnect();
-    emit(state.copyWith(
-      deviceConnectionState: DeviceConnectionState.disconnected,
-    ));
   }
 
   void setupTxCharacteristicsCallback() async {
@@ -105,5 +115,11 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
     if (rxCharacteristics == null) return;
 
     await rxCharacteristics.write(data.codeUnits);
+  }
+
+  @override
+  Future<void> close() async {
+    _connectionStateSubscription?.cancel();
+    super.close();
   }
 }

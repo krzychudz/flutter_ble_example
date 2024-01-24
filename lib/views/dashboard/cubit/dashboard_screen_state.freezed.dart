@@ -22,7 +22,7 @@ mixin _$DashboardScreenState {
       throw _privateConstructorUsedError;
   BluetoothCharacteristic? get txBluetoothCharacteristic =>
       throw _privateConstructorUsedError;
-  DeviceConnectionState get deviceConnectionState =>
+  BluetoothConnectionState get deviceConnectionState =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -41,7 +41,7 @@ abstract class $DashboardScreenStateCopyWith<$Res> {
       BluetoothDevice? espBluetoothDevice,
       BluetoothCharacteristic? rxBluetoothCharacteristic,
       BluetoothCharacteristic? txBluetoothCharacteristic,
-      DeviceConnectionState deviceConnectionState});
+      BluetoothConnectionState deviceConnectionState});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class _$DashboardScreenStateCopyWithImpl<$Res,
       deviceConnectionState: null == deviceConnectionState
           ? _value.deviceConnectionState
           : deviceConnectionState // ignore: cast_nullable_to_non_nullable
-              as DeviceConnectionState,
+              as BluetoothConnectionState,
     ) as $Val);
   }
 }
@@ -102,7 +102,7 @@ abstract class _$$DashboardScreenStateImplCopyWith<$Res>
       BluetoothDevice? espBluetoothDevice,
       BluetoothCharacteristic? rxBluetoothCharacteristic,
       BluetoothCharacteristic? txBluetoothCharacteristic,
-      DeviceConnectionState deviceConnectionState});
+      BluetoothConnectionState deviceConnectionState});
 }
 
 /// @nodoc
@@ -142,7 +142,7 @@ class __$$DashboardScreenStateImplCopyWithImpl<$Res>
       deviceConnectionState: null == deviceConnectionState
           ? _value.deviceConnectionState
           : deviceConnectionState // ignore: cast_nullable_to_non_nullable
-              as DeviceConnectionState,
+              as BluetoothConnectionState,
     ));
   }
 }
@@ -155,7 +155,7 @@ class _$DashboardScreenStateImpl implements _DashboardScreenState {
       this.espBluetoothDevice,
       this.rxBluetoothCharacteristic,
       this.txBluetoothCharacteristic,
-      this.deviceConnectionState = DeviceConnectionState.disconnected});
+      this.deviceConnectionState = BluetoothConnectionState.disconnected});
 
   @override
   final String? ledStatus;
@@ -167,7 +167,7 @@ class _$DashboardScreenStateImpl implements _DashboardScreenState {
   final BluetoothCharacteristic? txBluetoothCharacteristic;
   @override
   @JsonKey()
-  final DeviceConnectionState deviceConnectionState;
+  final BluetoothConnectionState deviceConnectionState;
 
   @override
   String toString() {
@@ -217,7 +217,7 @@ abstract class _DashboardScreenState implements DashboardScreenState {
           final BluetoothDevice? espBluetoothDevice,
           final BluetoothCharacteristic? rxBluetoothCharacteristic,
           final BluetoothCharacteristic? txBluetoothCharacteristic,
-          final DeviceConnectionState deviceConnectionState}) =
+          final BluetoothConnectionState deviceConnectionState}) =
       _$DashboardScreenStateImpl;
 
   @override
@@ -229,7 +229,7 @@ abstract class _DashboardScreenState implements DashboardScreenState {
   @override
   BluetoothCharacteristic? get txBluetoothCharacteristic;
   @override
-  DeviceConnectionState get deviceConnectionState;
+  BluetoothConnectionState get deviceConnectionState;
   @override
   @JsonKey(ignore: true)
   _$$DashboardScreenStateImplCopyWith<_$DashboardScreenStateImpl>

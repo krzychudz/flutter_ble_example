@@ -4,8 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'dashboard_screen_state.freezed.dart';
 
-enum DeviceConnectionState { connected, disconnected }
-
 @freezed
 class DashboardScreenState with _$DashboardScreenState {
   factory DashboardScreenState({
@@ -13,6 +11,6 @@ class DashboardScreenState with _$DashboardScreenState {
     BluetoothDevice? espBluetoothDevice,
     BluetoothCharacteristic? rxBluetoothCharacteristic,
     BluetoothCharacteristic? txBluetoothCharacteristic,
-    @Default(DeviceConnectionState.disconnected) DeviceConnectionState deviceConnectionState,
+    @Default(BluetoothConnectionState.disconnected) BluetoothConnectionState deviceConnectionState,
   }) = _DashboardScreenState;
 }

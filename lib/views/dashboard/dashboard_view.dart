@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ble_example/views/dashboard/cubit/dashboard_screen_cubit.dart';
 import 'package:flutter_ble_example/views/dashboard/cubit/dashboard_screen_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -51,8 +52,8 @@ class DeviceConnectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceConnectionState = context.select((DashboardScreenCubit cubit) => cubit.state.deviceConnectionState);
     final connectionStatusText =
-        deviceConnectionState == DeviceConnectionState.connected ? "Connected" : "Disconnected";
-    final connectionTextColor = deviceConnectionState == DeviceConnectionState.connected ? Colors.green : Colors.red;
+        deviceConnectionState == BluetoothConnectionState.connected ? "Connected" : "Disconnected";
+    final connectionTextColor = deviceConnectionState == BluetoothConnectionState.connected ? Colors.green : Colors.red;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
