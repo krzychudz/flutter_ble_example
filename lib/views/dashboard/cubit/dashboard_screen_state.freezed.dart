@@ -22,6 +22,8 @@ mixin _$DashboardScreenState {
       throw _privateConstructorUsedError;
   BluetoothCharacteristic? get txBluetoothCharacteristic =>
       throw _privateConstructorUsedError;
+  DeviceConnectionState get deviceConnectionState =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DashboardScreenStateCopyWith<DashboardScreenState> get copyWith =>
@@ -38,7 +40,8 @@ abstract class $DashboardScreenStateCopyWith<$Res> {
       {String? ledStatus,
       BluetoothDevice? espBluetoothDevice,
       BluetoothCharacteristic? rxBluetoothCharacteristic,
-      BluetoothCharacteristic? txBluetoothCharacteristic});
+      BluetoothCharacteristic? txBluetoothCharacteristic,
+      DeviceConnectionState deviceConnectionState});
 }
 
 /// @nodoc
@@ -59,6 +62,7 @@ class _$DashboardScreenStateCopyWithImpl<$Res,
     Object? espBluetoothDevice = freezed,
     Object? rxBluetoothCharacteristic = freezed,
     Object? txBluetoothCharacteristic = freezed,
+    Object? deviceConnectionState = null,
   }) {
     return _then(_value.copyWith(
       ledStatus: freezed == ledStatus
@@ -77,6 +81,10 @@ class _$DashboardScreenStateCopyWithImpl<$Res,
           ? _value.txBluetoothCharacteristic
           : txBluetoothCharacteristic // ignore: cast_nullable_to_non_nullable
               as BluetoothCharacteristic?,
+      deviceConnectionState: null == deviceConnectionState
+          ? _value.deviceConnectionState
+          : deviceConnectionState // ignore: cast_nullable_to_non_nullable
+              as DeviceConnectionState,
     ) as $Val);
   }
 }
@@ -93,7 +101,8 @@ abstract class _$$DashboardScreenStateImplCopyWith<$Res>
       {String? ledStatus,
       BluetoothDevice? espBluetoothDevice,
       BluetoothCharacteristic? rxBluetoothCharacteristic,
-      BluetoothCharacteristic? txBluetoothCharacteristic});
+      BluetoothCharacteristic? txBluetoothCharacteristic,
+      DeviceConnectionState deviceConnectionState});
 }
 
 /// @nodoc
@@ -111,6 +120,7 @@ class __$$DashboardScreenStateImplCopyWithImpl<$Res>
     Object? espBluetoothDevice = freezed,
     Object? rxBluetoothCharacteristic = freezed,
     Object? txBluetoothCharacteristic = freezed,
+    Object? deviceConnectionState = null,
   }) {
     return _then(_$DashboardScreenStateImpl(
       ledStatus: freezed == ledStatus
@@ -129,6 +139,10 @@ class __$$DashboardScreenStateImplCopyWithImpl<$Res>
           ? _value.txBluetoothCharacteristic
           : txBluetoothCharacteristic // ignore: cast_nullable_to_non_nullable
               as BluetoothCharacteristic?,
+      deviceConnectionState: null == deviceConnectionState
+          ? _value.deviceConnectionState
+          : deviceConnectionState // ignore: cast_nullable_to_non_nullable
+              as DeviceConnectionState,
     ));
   }
 }
@@ -140,7 +154,8 @@ class _$DashboardScreenStateImpl implements _DashboardScreenState {
       {this.ledStatus,
       this.espBluetoothDevice,
       this.rxBluetoothCharacteristic,
-      this.txBluetoothCharacteristic});
+      this.txBluetoothCharacteristic,
+      this.deviceConnectionState = DeviceConnectionState.disconnected});
 
   @override
   final String? ledStatus;
@@ -150,10 +165,13 @@ class _$DashboardScreenStateImpl implements _DashboardScreenState {
   final BluetoothCharacteristic? rxBluetoothCharacteristic;
   @override
   final BluetoothCharacteristic? txBluetoothCharacteristic;
+  @override
+  @JsonKey()
+  final DeviceConnectionState deviceConnectionState;
 
   @override
   String toString() {
-    return 'DashboardScreenState(ledStatus: $ledStatus, espBluetoothDevice: $espBluetoothDevice, rxBluetoothCharacteristic: $rxBluetoothCharacteristic, txBluetoothCharacteristic: $txBluetoothCharacteristic)';
+    return 'DashboardScreenState(ledStatus: $ledStatus, espBluetoothDevice: $espBluetoothDevice, rxBluetoothCharacteristic: $rxBluetoothCharacteristic, txBluetoothCharacteristic: $txBluetoothCharacteristic, deviceConnectionState: $deviceConnectionState)';
   }
 
   @override
@@ -170,12 +188,19 @@ class _$DashboardScreenStateImpl implements _DashboardScreenState {
                 other.rxBluetoothCharacteristic == rxBluetoothCharacteristic) &&
             (identical(other.txBluetoothCharacteristic,
                     txBluetoothCharacteristic) ||
-                other.txBluetoothCharacteristic == txBluetoothCharacteristic));
+                other.txBluetoothCharacteristic == txBluetoothCharacteristic) &&
+            (identical(other.deviceConnectionState, deviceConnectionState) ||
+                other.deviceConnectionState == deviceConnectionState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, ledStatus, espBluetoothDevice,
-      rxBluetoothCharacteristic, txBluetoothCharacteristic);
+  int get hashCode => Object.hash(
+      runtimeType,
+      ledStatus,
+      espBluetoothDevice,
+      rxBluetoothCharacteristic,
+      txBluetoothCharacteristic,
+      deviceConnectionState);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +216,8 @@ abstract class _DashboardScreenState implements DashboardScreenState {
           {final String? ledStatus,
           final BluetoothDevice? espBluetoothDevice,
           final BluetoothCharacteristic? rxBluetoothCharacteristic,
-          final BluetoothCharacteristic? txBluetoothCharacteristic}) =
+          final BluetoothCharacteristic? txBluetoothCharacteristic,
+          final DeviceConnectionState deviceConnectionState}) =
       _$DashboardScreenStateImpl;
 
   @override
@@ -202,6 +228,8 @@ abstract class _DashboardScreenState implements DashboardScreenState {
   BluetoothCharacteristic? get rxBluetoothCharacteristic;
   @override
   BluetoothCharacteristic? get txBluetoothCharacteristic;
+  @override
+  DeviceConnectionState get deviceConnectionState;
   @override
   @JsonKey(ignore: true)
   _$$DashboardScreenStateImplCopyWith<_$DashboardScreenStateImpl>

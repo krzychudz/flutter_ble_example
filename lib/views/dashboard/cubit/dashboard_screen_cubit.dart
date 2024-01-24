@@ -36,11 +36,16 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
 
   void connectToDevice() async {
     BluetoothDevice? bluetoothDevice = state.espBluetoothDevice;
+
     if (bluetoothDevice == null) {
       bluetoothDevice = await _bluetoothConnectionService.findBluetoothDeviceByPlatformName(
         CharacteristicsData.deviceName,
       );
-      if (bluetoothDevice == null) return;
+
+      if (bluetoothDevice == null) {
+        emitPresentation(GeneralConnectionError());
+        return;
+      }
 
       emit(state.copyWith(espBluetoothDevice: bluetoothDevice));
     }
@@ -60,6 +65,7 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
     emit(state.copyWith(
       rxBluetoothCharacteristic: rxBluetoothCharacteristic,
       txBluetoothCharacteristic: txBluetoothCharacteristic,
+      deviceConnectionState: DeviceConnectionState.connected,
     ));
 
     setupTxCharacteristicsCallback();
@@ -67,6 +73,9 @@ class DashboardScreenCubit extends Cubit<DashboardScreenState>
 
   void disconnect() async {
     await state.espBluetoothDevice?.disconnect();
+    emit(state.copyWith(
+      deviceConnectionState: DeviceConnectionState.disconnected,
+    ));
   }
 
   void setupTxCharacteristicsCallback() async {

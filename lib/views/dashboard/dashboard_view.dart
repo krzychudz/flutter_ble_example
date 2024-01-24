@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_example/views/dashboard/cubit/dashboard_screen_cubit.dart';
+import 'package:flutter_ble_example/views/dashboard/cubit/dashboard_screen_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardView extends StatelessWidget {
@@ -16,14 +17,11 @@ class DashboardView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('BLE test'),
+            const Text('ESP32 ble test app'),
             const SizedBox(height: 16),
             const LedStatus(),
             const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () => context.read<DashboardScreenCubit>().connectToDevice(),
-              child: const Text("Search for the device"),
-            ),
+            const DeviceConnectionSection(),
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () => context.read<DashboardScreenCubit>().onLedOnPressed(),
@@ -40,6 +38,35 @@ class DashboardView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class DeviceConnectionSection extends StatelessWidget {
+  const DeviceConnectionSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final deviceConnectionState = context.select((DashboardScreenCubit cubit) => cubit.state.deviceConnectionState);
+    final connectionStatusText =
+        deviceConnectionState == DeviceConnectionState.connected ? "Connected" : "Disconnected";
+    final connectionTextColor = deviceConnectionState == DeviceConnectionState.connected ? Colors.green : Colors.red;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () => context.read<DashboardScreenCubit>().connectToDevice(),
+          child: const Text("Connect"),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Status: $connectionStatusText",
+          style: TextStyle(color: connectionTextColor),
+        ),
+      ],
     );
   }
 }
